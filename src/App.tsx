@@ -1,4 +1,3 @@
-// App.tsx
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -12,13 +11,13 @@ import Trucks from "@/pages/Trucks";
 import { ReportsPanel } from "@/components/ReportsPanel";
 import { SettingsPage } from "@/components/SettingsPage";
 import NotFound from "@/pages/NotFound";
-import LoginPage from "@/components/LoginPage"; // ← Add your login page
-import { PrivateRoute } from "@/components/PrivateRoute"; // ← Add auth wrapper
+import { LoginPage } from "@/components/LoginPage";
+import { RegisterPage } from "@/components/RegisterPage";
+import { PrivateRoute } from "@/components/PrivateRoute";
+import { AuthProvider } from "@/context/AuthContext";
 
-// Import Leaflet setup - this must be imported before any components that use Leaflet
+// Import Leaflet setup
 import "./leaflet-setup";
-
-// Import Leaflet CSS
 import "leaflet/dist/leaflet.css";
 
 const queryClient = new QueryClient();
@@ -26,36 +25,39 @@ const queryClient = new QueryClient();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            {/* Public Route - Login */}
-            <Route path="/login" element={<LoginPage />} />
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
 
-            {/* Protected Routes */}
-            <Route
-              path="/"
-              element={
-                <PrivateRoute>
-                  <MainLayout />
-                </PrivateRoute>
-              }
-            >
-              <Route index element={<Index />} />
-              <Route path="trucks" element={<Trucks />} />
-              <Route path="reports" element={<ReportsPanel />} />
-              <Route path="settings" element={<SettingsPage />} />
-            </Route>
+              {/* Protected Routes */}
+              <Route
+                path="/"
+                element={
+                  <PrivateRoute>
+                    <MainLayout />
+                  </PrivateRoute>
+                }
+              >
+                <Route index element={<Index />} />
+                <Route path="trucks" element={<Trucks />} />
+                <Route path="reports" element={<ReportsPanel />} />
+                <Route path="settings" element={<SettingsPage />} />
+              </Route>
 
-            {/* 404 & Redirects */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+              {/* 404 & Redirects */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
-}
+};
 
 export default App;
