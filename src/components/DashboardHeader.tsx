@@ -58,7 +58,7 @@ const DashboardHeader = () => {
               className="font-semibold text-blue-900 text-sm"
               style={fontFamily}
             >
-              Alex Mathews
+              Ajith Kumar
             </span>
             <span className="text-xs text-blue-400">Fleet Manager</span>
           </div>

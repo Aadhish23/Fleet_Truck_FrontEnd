@@ -9,7 +9,7 @@ const TruckMap = () => {
   const trucks = [
     { 
       id: "TRK-001", 
-      driver: "John Smith", 
+      driver: "Ravi Kumar", 
       location: "Mumbai Highway", 
       status: "active", 
       fuel: 85,
@@ -17,7 +17,7 @@ const TruckMap = () => {
     },
     { 
       id: "TRK-002", 
-      driver: "Maria Garcia", 
+      driver: "Meena Devi", 
       location: "Bangalore Route", 
       status: "drowsy", 
       fuel: 42,
@@ -25,7 +25,7 @@ const TruckMap = () => {
     },
     { 
       id: "TRK-003", 
-      driver: "David Chen", 
+      driver: "Sundar", 
       location: "Chennai Express", 
       status: "active", 
       fuel: 76,
@@ -33,7 +33,7 @@ const TruckMap = () => {
     },
     { 
       id: "TRK-004", 
-      driver: "Sarah Johnson", 
+      driver: "Patel", 
       location: "Delhi Highway", 
       status: "low-fuel", 
       fuel: 15,
