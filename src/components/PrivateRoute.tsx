@@ -1,24 +1,21 @@
-// components/PrivateRoute.tsx
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-export function PrivateRoute({ children }: { children: React.ReactNode }) {
-  const [loading, setLoading] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem('fleetToken');
-    if (token) {
-      // Optional: validate token with /api/auth/me
-      setAuthenticated(true);
-    } else {
-      setAuthenticated(false);
-    }
-    setLoading(false);
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-  if (!authenticated) return <Navigate to="/login" />;
-
-  return <>{children}</>;
+interface PrivateRouteProps {
+  children: React.ReactNode;
 }
+
+export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
+};
